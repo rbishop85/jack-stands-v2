@@ -11,8 +11,8 @@ export const wrenchtimeSchema = appSchema({
           {name: 'title', type: 'string'},
           {name: 'description', type: 'string', isOptional: true},
           {name: 'photos', type: 'array<string>', isOptional: true},
-          {name: 'vehicle', type: 'relation', isOptional: true}
-          {name: 'parts', type: 'array<relation>', isOptional: true}
+          {name: 'vehicle', type: 'relation', isOptional: true},
+          {name: 'parts', type: 'array<relation>', isOptional: true},
           {name: 'price', type: 'number', isOptional: true}
         ],
       }),
