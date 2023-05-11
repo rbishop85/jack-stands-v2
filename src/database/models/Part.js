@@ -1,17 +1,21 @@
 // Model for individual Part
 import {Model} from '@nozbe/watermelondb';
-import {field} from '@nozbe/watermelondb/decorators';
+import {field, relation} from '@nozbe/watermelondb/decorators';
 
 export default class Part extends Model {
   static table = 'parts';
+  static associations = {
+    vehicles: { type: 'belongs_to', key: 'vehicle_id'},
+    locations: { type: 'belongs_to', key: 'location_id'}
+  }
 
   @field('name') name;
   @field('description') description;
   @field('type') type;
   @field('photos') photos;
   @field('price') price;
-  @field('car_id') car_id;
-  @field('location_id') location_id;
+  @relation('vehicles', 'vehicle_id') vehicle;
+  @relation('locations', 'location_id') location;
 }
 
 // Fields:

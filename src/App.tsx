@@ -6,23 +6,12 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-
-
 // Importing Local Database
 import {mySchema} from './database/schema';
 import Task from './database/Task';
 
-// Importing Pages
-import HomeScreen from './pages/HomeScreen';
-import Garage from './pages/Garage';
-import PartsShelf from './pages/PartsShelf';
-import Inspiration from './pages/Inspiration';
-
 // Importing Components
-import NavBar from './components/NavBar';
 import TitleBar from './components/TitleBar';
-
-// Testing a bottom navigation tab bar
 import BottomNav from './components/BottomNav';
 
 const adapter = new SQLiteAdapter({
@@ -34,9 +23,13 @@ const database = new Database({
   modelClasses: [Task],
 });
 
+
+
 const Stack = createNativeStackNavigator();
 
 export default class App extends Component {
+
+  
   render = () => {
     return (
       <DatabaseProvider database={database}>

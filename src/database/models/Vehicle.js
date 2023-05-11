@@ -1,23 +1,28 @@
 // Model for individual Vehicle
 import {Model} from '@nozbe/watermelondb';
-import {field} from '@nozbe/watermelondb/decorators';
+import {field, relation} from '@nozbe/watermelondb/decorators';
 
 export default class Vehicle extends Model {
   static table = 'vehicles';
+  static associations = {
+    wrenchtimes: { type: 'has_many', key: 'wrenchtime_id' },
+    parts: { type: 'has_many', key: 'part_id' },
+    ideas: { type: 'has_many', key: 'idea_id' }
+  }
 
   @field('make') make;
   @field('model') model;
   @field('year') year;
   @field('nickname') nickname;
   @field('color') color;
-  @field('cost') cost;
+  @field('price') price;
   @field('description') description;
   @field('default_photo') default_photo;
   @field('photos') photos;
-  @field('wrench_times') wrench_times;
-  @field('parts') parts;
-  @field('ideas') ideas;
-  @field('sold_date') sold_date;
+  @relation('wrenchtimes', 'wrenchtime_id') wrench_times;
+  @relation('parts', 'part_id') parts;
+  @relation('ideas', 'idea_id') ideas;
+  @field('sold') sold;
 }
 
 // Fields:
@@ -33,4 +38,4 @@ export default class Vehicle extends Model {
 // wrench_times - array of ids for wrench times associated to car (optional)
 // parts - array of ids for parts associated to car (optional)
 // ideas - array of ids for ideas associated to car (optional)
-// sold_date - date for the if the car is sold (optional)
+// sold - has the car been sold (optional)
