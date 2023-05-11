@@ -20,7 +20,7 @@ export const vehicleSchema = appSchema({
           {name: 'wrench_times', type: 'array<relation>', isOptional: true},
           {name: 'parts', type: 'array<relation>', isOptional: true},
           {name: 'ideas', type: 'array<relation>', isOptional: true},
-          {name: 'sold', type: 'boolean', default: false}
+          {name: 'sold', type: 'boolean', isOptional}
         ],
       }),
   ],

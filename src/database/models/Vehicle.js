@@ -8,6 +8,9 @@ export default class Vehicle extends Model {
     wrenchtimes: { type: 'has_many', key: 'wrenchtime_id' },
     parts: { type: 'has_many', key: 'part_id' },
     ideas: { type: 'has_many', key: 'idea_id' }
+  };
+  static defaultValues = {
+    sold: false,
   }
 
   @field('make') make;
