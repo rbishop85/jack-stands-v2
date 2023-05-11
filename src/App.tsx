@@ -1,31 +1,62 @@
-import { ReactElement } from 'react'
-import { StyleSheet, Text } from 'react-native'
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
+import { Component } from 'react'
+import {Database} from '@nozbe/watermelondb';
+import DatabaseProvider from '@nozbe/watermelondb/DatabaseProvider';
+import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite';
+import { Provider as PaperProvider } from 'react-native-paper';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function App(): ReactElement {
-  return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.emoji}>😻</Text>
-        <Text style={styles.text}>Open src/App.tsx to start working on your app!</Text>
-        <Text>Happy hacking! 🙌🏻</Text>
-      </SafeAreaView>
-    </SafeAreaProvider>
-  )
+
+
+// Importing Local Database
+import {mySchema} from './database/schema';
+import Task from './database/Task';
+
+// Importing Pages
+import HomeScreen from './pages/HomeScreen';
+import Garage from './pages/Garage';
+import PartsShelf from './pages/PartsShelf';
+import Inspiration from './pages/Inspiration';
+
+// Importing Components
+import NavBar from './components/NavBar';
+import TitleBar from './components/TitleBar';
+
+// Testing a bottom navigation tab bar
+import BottomNav from './components/BottomNav';
+
+const adapter = new SQLiteAdapter({
+  schema: mySchema,
+});
+
+const database = new Database({
+  adapter,
+  modelClasses: [Task],
+});
+
+const Stack = createNativeStackNavigator();
+
+export default class App extends Component {
+  render = () => {
+    return (
+      <DatabaseProvider database={database}>
+        <PaperProvider>
+        <NavigationContainer>
+          {/* <Stack.Navigator 
+            initialRouteName="Home"
+            screenOptions={{
+              header: (props) => <NavBar {...props} />,
+            }}>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Garage" component={Garage} />
+            <Stack.Screen name="Parts Shelf" component={PartsShelf} />
+            <Stack.Screen name="Ideas / Inspiration" component={Inspiration} />
+          </Stack.Navigator> */}
+          <TitleBar />
+          <BottomNav />
+        </NavigationContainer>
+        </PaperProvider>
+      </DatabaseProvider>
+    );
+  };
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  text: {
-    marginBottom: 8
-  },
-  emoji: {
-    fontSize: 82,
-    marginBottom: 24
-  }
-})
