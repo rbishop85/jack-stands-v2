@@ -8,20 +8,15 @@ import Part from './models/Part';
 import Vehicle from './models/Vehicle';
 import WrenchTime from './models/WrenchTime';
 
-// Pulling in individual model schemas
-import { ideaSchema } from './schemas/ideaSchema';
-import { locationSchema } from './schemas/locationSchema';
-import { partSchema } from './schemas/partSchema';
-import { vehicleSchema } from './schemas/vehicleSchema';
-import { wrenchtimeSchema } from './schemas/wrenchtimeSchema';
+// Pulling in schema
+import { schema } from './schema';
 
 const adapter = new SQLiteAdapter({
   dbName: 'jackStandsDB', // <-- set the database name here
-  schema: mergeSchemas([ideaSchema, locationSchema, partSchema, vehicleSchema, wrenchtimeSchema]),
+  schema: schema,
 });
 
 export const database = new Database({
   adapter,
   modelClasses: [Idea, Location, Part, Vehicle, WrenchTime],
-  actionsEnabled: true,
 });

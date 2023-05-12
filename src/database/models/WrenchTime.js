@@ -1,20 +1,24 @@
 // Model for individual Wrench Times (Posts)
 import {Model} from '@nozbe/watermelondb';
-import {field, relation} from '@nozbe/watermelondb/decorators';
+import {field, relation, date, readonly, json, text} from '@nozbe/watermelondb/decorators';
 
 export default class WrenchTime extends Model {
   static table = 'wrenchtimes';
   static associations = {
-    vehicles: { type: 'belongs_to', key: 'vehicle_id' },
-    parts: { type: 'has_many', key: 'part_id' }    
+    vehicles: { type: 'belongs_to', key: 'vehicle_id' },   
   }
 
   @field('title') title;
-  @field('description') description;
-  @field('photos') photos;
-  @relation('vehicles', 'vehicle_id') vehicle;
-  @relation('parts', 'part_id') parts;
+  @text('description') description;
+  @json('photos') photos;
   @field('price') price;
+  @json('parts_used') partsUsed;
+  @json('parts_removed') partsRemoved;
+
+  @relation('vehicles', 'vehicle_id') vehicle;
+
+  @readonly @date('created_at') createdAt;
+  @readonly @date('updated_at') updatedAt;
 }
 
 // Fields:

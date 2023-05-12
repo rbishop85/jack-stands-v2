@@ -1,27 +1,28 @@
 import { Component } from 'react'
-import {Database} from '@nozbe/watermelondb';
+// import {Database} from '@nozbe/watermelondb';
 import DatabaseProvider from '@nozbe/watermelondb/DatabaseProvider';
-import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite';
+// import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // Importing Local Database
-import {mySchema} from './database/schema';
-import Task from './database/Task';
+import { database } from './database/database';
+// import {mySchema} from './database/schema';
+// import Task from './database/Task';
 
 // Importing Components
 import TitleBar from './components/TitleBar';
 import BottomNav from './components/BottomNav';
 
-const adapter = new SQLiteAdapter({
-  schema: mySchema,
-});
+// const adapter = new SQLiteAdapter({
+//   schema: mySchema,
+// });
 
-const database = new Database({
-  adapter,
-  modelClasses: [Task],
-});
+// const database = new Database({
+//   adapter,
+//   modelClasses: [Task],
+// });
 
 
 

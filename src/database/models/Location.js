@@ -1,16 +1,20 @@
 // Model for individual Shelf Location
 import {Model} from '@nozbe/watermelondb';
-import {field, relation} from '@nozbe/watermelondb/decorators';
+import {field, date, readonly, children, text} from '@nozbe/watermelondb/decorators';
 
 export default class Location extends Model {
   static table = 'locations';
   static associations = {
-    parts: { type: 'has_many', key: 'part_id'}
+    parts: { type: 'has_many', foreignKey: 'location_id'}
   }
 
   @field('name') name;
-  @field('description') description;
-  @relation('parts', 'part_id') parts;
+  @text('description') description;
+
+  @children('parts') parts;
+
+  @readonly @date('created_at') createdAt;
+  @readonly @date('updated_at') updatedAt;
 }
 
 // Fields:

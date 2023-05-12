@@ -1,13 +1,13 @@
 // Model for individual Vehicle
 import {Model} from '@nozbe/watermelondb';
-import {field, relation} from '@nozbe/watermelondb/decorators';
+import {field, date, readonly, children, json, text} from '@nozbe/watermelondb/decorators';
 
 export default class Vehicle extends Model {
   static table = 'vehicles';
   static associations = {
-    wrenchtimes: { type: 'has_many', key: 'wrenchtime_id' },
-    parts: { type: 'has_many', key: 'part_id' },
-    ideas: { type: 'has_many', key: 'idea_id' }
+    wrenchtimes: { type: 'has_many', foreignKey: 'vehicle_id' },
+    parts: { type: 'has_many', foreignKey: 'vehicle_id' },
+    ideas: { type: 'has_many', foreignKey: 'vehicle_id' }
   };
   static defaultValues = {
     sold: false,
@@ -19,13 +19,17 @@ export default class Vehicle extends Model {
   @field('nickname') nickname;
   @field('color') color;
   @field('price') price;
-  @field('description') description;
+  @text('description') description;
   @field('default_photo') default_photo;
-  @field('photos') photos;
-  @relation('wrenchtimes', 'wrenchtime_id') wrench_times;
-  @relation('parts', 'part_id') parts;
-  @relation('ideas', 'idea_id') ideas;
-  @field('sold') sold;
+  @json('photos') photos;
+  @field('is_sold') isSold;
+
+  @children('wrenchtimes') wrenchtimes;
+  @children('parts') parts;
+  @children('ideas') ideas;
+  
+  @readonly @date('created_at') createdAt;
+  @readonly @date('updated_at') updatedAt;
 }
 
 // Fields:

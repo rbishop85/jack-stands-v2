@@ -1,6 +1,6 @@
 // Model for individual Idea/Inspiration
 import {Model} from '@nozbe/watermelondb';
-import {field, relation} from '@nozbe/watermelondb/decorators';
+import {field, relation, json, date, readonly, text} from '@nozbe/watermelondb/decorators';
 
 export default class Idea extends Model {
   static table = 'ideas';
@@ -9,10 +9,15 @@ export default class Idea extends Model {
   }
 
   @field('name') name;
-  @field('description') description;
+  @text('description') description;
   @field('link') link;
-  @field('photos') photos;
+
+  @json('photos') photos;
+
   @relation('vehicles', 'vehicle_id') vehicle;
+
+  @readonly @date('created_at') createdAt;
+  @readonly @date('updated_at') updatedAt;
 }
 
 // Fields:

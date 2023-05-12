@@ -1,6 +1,6 @@
 // Model for individual Part
 import {Model} from '@nozbe/watermelondb';
-import {field, relation} from '@nozbe/watermelondb/decorators';
+import {field, relation, date, readonly, json, text} from '@nozbe/watermelondb/decorators';
 
 export default class Part extends Model {
   static table = 'parts';
@@ -10,12 +10,16 @@ export default class Part extends Model {
   }
 
   @field('name') name;
-  @field('description') description;
+  @text('description') description;
   @field('type') type;
-  @field('photos') photos;
+  @json('photos') photos;
   @field('price') price;
+
   @relation('vehicles', 'vehicle_id') vehicle;
   @relation('locations', 'location_id') location;
+
+  @readonly @date('created_at') createdAt;
+  @readonly @date('updated_at') updatedAt;
 }
 
 // Fields:
